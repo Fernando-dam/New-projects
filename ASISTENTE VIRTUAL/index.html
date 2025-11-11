@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asistente Virtual - Universidad X</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            color: #4a5568;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .icon {
+            font-size: 1.5rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            min-height: calc(100vh - 100px);
+        }
+
+        .panel {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .panel:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .panel h2 {
+            color: #2d3748;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+
+        .auth-section {
+            margin-bottom: 2rem;
+        }
+
+        .user-type {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .user-type button {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .user-type button.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+            transform: scale(1.05);
+        }
+
+        .user-type button:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #4a5568;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.2);
+            transform: scale(1.02);
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-bottom: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 15px;
+            border-left: 4px solid #667eea;
+        }
+
+        .course-item {
+            background: white;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .course-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .status {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-left: 1rem;
+        }
+
+        .status.pending {
+            background: #fed7d7;
+            color: #c53030;
+        }
+
+        .status.approved {
+            background: #c6f6d5;
+            color: #2f855a;
+        }
+
+        .status.processing {
+            background: #feebc8;
+            color: #c05621;
+        }
+
+        .chat-container {
+            height: 400px;
+            border: 2px solid #e2e8f0;
+            border-radius: 15px;
+            overflow-y: auto;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1rem;
+        }
+
+        .message {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            border-radius: 10px;
+            max-width: 80%;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        .message.user {
+            background: #667eea;
+            color: white;
+            margin-left: auto;
+            border-bottom-right-radius: 5px;
+        }
+
+        .message.assistant {
+            background: #f7fafc;
+            color: #2d3748;
+            border-bottom-left-radius: 5px;
+            border-left: 3px solid #667eea;
+        }
+
+        .chat-input {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+        }
+
+        .chat-input button {
+            padding: 1rem 1.5rem;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .chat-input button:hover {
+            background: #5a67d8;
+            transform: scale(1.1);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1rem 2rem;
+            background: #48bb78;
+            color: white;
+            border-radius: 10px;
+            z-index: 1000;
+            transform: translateX(100%);
+            transition: all 0.3s ease;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.error {
+            background: #f56565;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+            
+            .header {
+                padding: 1rem;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
+        }
+
+        .verification-section {
+            background: linear-gradient(135deg, #667eea20, #764ba220);
+            border: 2px solid #667eea;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .document-upload {
+            border: 2px dashed #667eea;
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .document-upload:hover {
+            background: rgba(102, 126, 234, 0.1);
+            border-color: #5a67d8;
+        }
+
+        .document-upload.dragover {
+            background: rgba(102, 126, 234, 0.2);
+            transform: scale(1.02);
+        }
+
+        .file-list {
+            margin-top: 1rem;
+        }
+
+        .file-item {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            padding: 0.5rem;
+            background: white;
+            border-radius: 5px;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1><span class="icon">🎓</span> Asistente Virtual - Universidad X</h1>
+    </div>
+
+    <div class="container">
+        <!-- Panel Izquierdo: Funcionalidades Principales -->
+        <div class="panel">
+            <h2><span class="icon">👤</span> Acceso al Sistema</h2>
+            
+            <!-- Selección de tipo de usuario -->
+            <div class="auth-section">
+                <div class="user-type">
+                    <button type="button" class="user-btn active" data-type="user">Usuario</button>
+                    <button type="button" class="user-btn" data-type="admin">Administrador</button>
+                </div>
+
+                <div class="form-group">
+                    <label for="username">Usuario:</label>
+                    <input type="text" id="username" placeholder="Ingrese su usuario">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Contraseña:</label>
+                    <input type="password" id="password" placeholder="Ingrese su contraseña">
+                </div>
+
+                <button class="btn" onclick="login()">Iniciar Sesión</button>
+            </div>
+
+            <!-- Secciones del sistema (inicialmente ocultas) -->
+            <div id="user-section" class="hidden">
+                <div class="section">
+                    <h3><span class="icon">📝</span> Registro de Cursos</h3>
+                    <div class="form-group">
+                        <label for="course-select">Seleccionar Curso:</label>
+                        <select id="course-select">
+                            <option value="">Seleccione un curso...</option>
+                            <option value="programacion-web">Programación Web Avanzada</option>
+                            <option value="data-science">Ciencia de Datos</option>
+                            <option value="cybersecurity">Ciberseguridad</option>
+                            <option value="ai-ml">Inteligencia Artificial y ML</option>
+                            <option value="mobile-dev">Desarrollo Mobile</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="student-name">Nombre Completo:</label>
+                        <input type="text" id="student-name" placeholder="Ingrese nombre completo">
+                    </div>
+                    <div class="form-group">
+                        <label for="student-email">Email:</label>
+                        <input type="email" id="student-email" placeholder="correo@universidad.edu">
+                    </div>
+                    <button class="btn btn-secondary" onclick="registerCourse()">Inscribir en Curso</button>
+                </div>
+
+                <div class="section">
+                    <h3><span class="icon">📜</span> Solicitar Certificado y Constancias</h3>
+                    <div class="form-group">
+                        <label for="cert-type">Tipo de Documento:</label>
+                        <select id="cert-type">
+                            <option value="certificado">Certificado de Finalización</option>
+                            <option value="constancia">Constancia de Participación</option>
+                            <option value="notas">Certificado de Notas</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="cert-course">Curso:</label>
+                        <select id="cert-course">
+                            <option value="">Seleccione curso completado...</option>
+                            <option value="programacion-web">Programación Web Avanzada</option>
+                            <option value="data-science">Ciencia de Datos</option>
+                        </select>
+                    </div>
+                    <button class="btn" onclick="requestCertificate()">Solicitar Documento</button>
+                </div>
+
+                <div class="section">
+                    <h3><span class="icon">📅</span> Solicitar Citas</h3>
+                    <div class="form-group">
+                        <label for="appointment-type">Tipo de Cita:</label>
+                        <select id="appointment-type">
+                            <option value="asesoria">Asesoría Académica</option>
+                            <option value="matricula">Consulta de Matrícula</option>
+                            <option value="certificados">Revisión de Certificados</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="appointment-date">Fecha Preferida:</label>
+                        <input type="date" id="appointment-date">
+                    </div>
+                    <div class="form-group">
+                        <label for="appointment-time">Hora Preferida:</label>
+                        <input type="time" id="appointment-time">
+                    </div>
+                    <button class="btn btn-secondary" onclick="requestAppointment()">Solicitar Cita</button>
+                </div>
+
+                <div class="section">
+                    <h3><span class="icon">📄</span> Retirar Certificados y Documentos</h3>
+                    <div id="documents-list">
+                        <!-- Los documentos se cargarán dinámicamente -->
+                    </div>
+                    <button class="btn" onclick="loadDocuments()">Verificar Documentos Disponibles</button>
+                </div>
+            </div>
+
+            <!-- Sección de Administrador -->
+            <div id="admin-section" class="hidden">
+                <div class="section">
+                    <h3><span class="icon">👥</span> Gestión de Usuarios</h3>
+                    <div class="form-group">
+                        <label for="search-user">Buscar Usuario:</label>
+                        <input type="text" id="search-user" placeholder="Nombre o email del usuario">
+                    </div>
+                    <button class="btn" onclick="searchUsers()">Buscar</button>
+                    <div id="users-results"></div>
+                </div>
+
+                <div class="section">
+                    <h3><span class="icon">📊</span> Reportes y Estadísticas</h3>
+                    <button class="btn btn-secondary" onclick="generateReport()">Generar Reporte de Inscripciones</button>
+                    <button class="btn btn-secondary" onclick="exportData()">Exportar Datos</button>
+                </div>
+            </div>
+
+            <!-- Sección de Verificación -->
+            <div class="verification-section">
+                <h3><span class="icon">✅</span> Verificación de Usuario</h3>
+                <p>Para mayor seguridad, verifique su identidad:</p>
+                
+                <div class="document-upload" onclick="document.getElementById('file-upload').click()">
+                    <span class="icon" style="font-size: 2rem;">📁</span>
+                    <p>Haga clic aquí para subir documento de identidad</p>
+                    <input type="file" id="file-upload" style="display: none;" accept=".pdf,.jpg,.png" onchange="handleFileUpload(this)">
+                </div>
+                
+                <div id="uploaded-files" class="file-list"></div>
+                
+                <div class="form-group">
+                    <label for="verification-code">Código de Verificación:</label>
+                    <input type="text" id="verification-code" placeholder="Ingrese el código enviado por SMS/Email">
+                </div>
+                
+                <button class="btn btn-secondary" onclick="verifyUser()">Verificar Identidad</button>
+            </div>
+        </div>
+
+        <!-- Panel Derecho: Mensajería y Chat -->
+        <div class="panel">
+            <h2><span class="icon">💬</span> Mensajería con Estudiantes</h2>
+            
+            <div class="chat-container" id="chat-container">
+                <div class="message assistant">
+                    <strong>Asistente Virtual:</strong><br>
+                    ¡Bienvenido al sistema de inscripciones de la Universidad X! Estoy aquí para ayudarte con:
+                    <ul>
+                        <li>Registro en cursos de formación</li>
+                        <li>Solicitud de certificados y constancias</li>
+                        <li>Programación de citas</li>
+                        <li>Retiro de documentos</li>
+                        <li>Verificación de usuario</li>
+                    </ul>
+                    ¿En qué puedo asistirte hoy?
+                </div>
+            </div>
+
+            <div class="chat-input">
+                <input type="text" id="message-input" placeholder="Escriba su mensaje aquí..." onkeypress="handleKeyPress(event)">
+                <button onclick="sendMessage()">Enviar</button>
+            </div>
+
+            <div class="section" style="margin-top: 2rem;">
+                <h3><span class="icon">📋</span> Estado de Solicitudes</h3>
+                <div id="requests-status">
+                    <div class="course-item">
+                        <strong>Certificado - Programación Web</strong>
+                        <span class="status processing">En Proceso</span>
+                        <p><small>Solicitado: 15 de Septiembre, 2025</small></p>
+                    </div>
+                    <div class="course-item">
+                        <strong>Cita - Asesoría Académica</strong>
+                        <span class="status approved">Aprobada</span>
+                        <p><small>Fecha: 18 de Septiembre, 2025 - 14:00</small></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3><span class="icon">📈</span> Progreso Académico</h3>
+                <div style="background: white; padding: 1rem; border-radius: 10px;">
+                    <div style="margin-bottom: 1rem;">
+                        <strong>Cursos Completados:</strong> 3/5
+                        <div style="background: #e2e8f0; height: 10px; border-radius: 5px; margin-top: 0.5rem;">
+                            <div style="background: #48bb78; width: 60%; height: 100%; border-radius: 5px;"></div>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <strong>Certificados Obtenidos:</strong> 2
+                    </div>
+                    <div>
+                        <strong>Próximo Vencimiento:</strong> 20 de Septiembre, 2025
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notificación -->
+    <div id="notification" class="notification"></div>
+
+    <script>
+        // Variables globales
+        let currentUser = null;
+        let userType = 'user';
+        let chatMessages = [];
+        let uploadedFiles = [];
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configurar fecha mínima para citas (hoy)
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('appointment-date').setAttribute('min', today);
+
+            // Configurar drag and drop para archivos
+            setupDragAndDrop();
+        });
+
+        // Gestión de usuarios
+        document.querySelectorAll('.user-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.user-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                userType = this.dataset.type;
+            });
+        });
+
+        // Función de login
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (!username || !password) {
+                showNotification('Por favor, complete todos los campos', 'error');
+                return;
+            }
+
+            // Simulación de autenticación
+            if (username === 'admin' && password === 'admin123') {
+                currentUser = { name: 'Administrador', type: 'admin' };
+                showSection('admin');
+            } else if (username === 'estudiante' && password === 'est123') {
+                currentUser = { name: 'Juan Pérez', type: 'user' };
+                showSection('user');
+            } else {
+                showNotification('Credenciales incorrectas', 'error');
+                return;
+            }
+
+            showNotification(`¡Bienvenido, ${currentUser.name}!`);
+            addChatMessage('assistant', `¡Hola ${currentUser.name}! Has iniciado sesión como ${currentUser.type === 'admin' ? 'Administrador' : 'Usuario'}. ¿En qué puedo ayudarte?`);
+        }
+
+        // Mostrar secciones según el tipo de usuario
+        function showSection(type) {
+            document.getElementById('user-section').classList.add('hidden');
+            document.getElementById('admin-section').classList.add('hidden');
+            
+            if (type === 'user') {
+                document.getElementById('user-section').classList.remove('hidden');
+            } else if (type === 'admin') {
+                document.getElementById('admin-section').classList.remove('hidden');
+            }
+        }
+
+        // Registro de cursos
+        function registerCourse() {
+            const course = document.getElementById('course-select').value;
+            const name = document.getElementById('student-name').value;
+            const email = document.getElementById('student-email').value;
+
+            if (!course || !name || !email) {
+                showNotification('Por favor, complete todos los campos', 'error');
+                return;
+            }
+
+            // Simulación de registro
+            showNotification('¡Inscripción exitosa! Recibirá confirmación por email.');
+            addChatMessage('assistant', `Perfecto! Has sido inscrito en el curso "${course}". Te enviaremos los detalles de inicio a ${email}.`);
+            
+            // Limpiar formulario
+            document.getElementById('course-select').value = '';
+            document.getElementById('student-name').value = '';
+            document.getElementById('student-email').value = '';
+        }
+
+        // Solicitar certificado
+        function requestCertificate() {
+            const certType = document.getElementById('cert-type').value;
+            const course = document.getElementById('cert-course').value;
+
+            if (!course) {
+                showNotification('Por favor, seleccione un curso', 'error');
+                return;
+            }
+
+            showNotification('Solicitud de certificado enviada correctamente');
+            addChatMessage('assistant', `Tu solicitud de ${certType} para el curso ${course} ha sido procesada. Te notificaremos cuando esté listo.`);
+        }
+
+        // Solicitar cita
+        function requestAppointment() {
+            const type = document.getElementById('appointment-type').value;
+            const date = document.getElementById('appointment-date').value;
+            const time = document.getElementById('appointment-time').value;
+
+            if (!date || !time) {
+                showNotification('Por favor, seleccione fecha y hora', 'error');
+                return;
+            }
+
+            showNotification('Cita agendada correctamente');
+            addChatMessage('assistant', `Tu cita de ${type} ha sido agendada para el ${date} a las ${time}. Recibirás una confirmación por email.`);
+        }
+
+        // Cargar documentos disponibles
+        function loadDocuments() {
+            const documentsDiv = document.getElementById('documents-list');
+            documentsDiv.innerHTML = `
+                <div class="course-item">
+                    <strong>Certificado - Programación Web Avanzada</strong>
+                    <span class="status approved">Listo para Retirar</span>
+                    <button class="btn" style="margin-top: 0.5rem; padding: 0.5rem;" onclick="downloadDocument('cert-web')">Descargar PDF</button>
+                </div>
+                <div class="course-item">
+                    <strong>Constancia - Ciencia de Datos</strong>
+                    <span class="status processing">En Preparación</span>
+                    <p><small>Estará disponible el 18 de Septiembre</small></p>
+                </div>
+            `;
+        }
+
+        // Descargar documento
+        function downloadDocument(docId) {
+            showNotification('Descarga iniciada');
+            addChatMessage('assistant', 'Tu documento está siendo descargado. El archivo se guardará en tu carpeta de descargas.');
+        }
+
+        // Funciones de administrador
+        function searchUsers() {
+            const searchTerm = document.getElementById('search-user').value;
+            if (!searchTerm) {
+                showNotification('Ingrese término de búsqueda', 'error');
+                return;
+            }
+
+            const resultsDiv = document.getElementById('users-results');
+            resultsDiv.innerHTML = `
+                <div class="course-item">
+                    <strong>Juan Pérez - juan.perez@universidad.edu</strong>
+                    <p>Cursos: 3 completados, 1 en progreso</p>
+                    <button class="btn" style="padding: 0.5rem; margin-top: 0.5rem;" onclick="viewUserDetails('juan')">Ver Detalles</button>
+                </div>
+                <div class="course-item">
+                    <strong>María García - maria.garcia@universidad.edu</strong>
+                    <p>Cursos: 5 completados</p>
+                    <button class="btn" style="padding: 0.5rem; margin-top: 0.5rem;" onclick="viewUserDetails('maria')">Ver Detalles</button>
+                </div>
+            `;
+        }
+
+        function viewUserDetails(userId) {
+            addChatMessage('assistant', `Mostrando detalles completos del usuario ${userId}. Desde aquí puedes gestionar sus inscripciones y documentos.`);
+        }
+
+        function generateReport() {
+            showNotification('Generando reporte...');
+            setTimeout(() => {
+                showNotification('Reporte generado correctamente');
+                addChatMessage('assistant', 'El reporte de inscripciones ha sido generado. Incluye estadísticas de los últimos 6 meses.');
+            }, 2000);
+        }
+
+        function exportData() {
+            showNotification('Exportando datos...');
+            setTimeout(() => {
+                showNotification('Datos exportados a Excel');
+            }, 1500);
+        }
+
+        // Verificación de usuario
+        function setupDragAndDrop() {
+            const uploadArea = document.querySelector('.document-upload');
+            
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                uploadArea.addEventListener(eventName, preventDefaults, false);
+            });
+
+            ['dragenter', 'dragover'].forEach(eventName => {
+                uploadArea.addEventListener(eventName, () => uploadArea.classList.add('dragover'), false);
+            });
+
+            ['dragleave', 'drop'].forEach(eventName => {
+                uploadArea.addEventListener(eventName, () => uploadArea.classList.remove('dragover'), false);
+            });
+
+            uploadArea.addEventListener('drop', handleDrop, false);
+        }
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        function handleDrop(e) {
+            const files = e.dataTransfer.files;
+            handleFiles(files);
+        }
+
+        function handleFileUpload(input) {
+            handleFiles(input.files);
+        }
+
+        function handleFiles(files) {
+            [...files].forEach(file => {
+                if (file.type.includes('image') || file.type.includes('pdf')) {
+                    uploadedFiles.push(file);
+                    displayUploadedFile(file);
+                    showNotification(`Archivo ${file.name} cargado correctamente`);
+                } else {
+                    showNotification('Solo se permiten archivos PDF e imágenes', 'error');
+                }
+            });
+        }
+
+        function displayUploadedFile(file) {
+            const fileList = document.getElementById('uploaded-files');
+            const fileItem = document.createElement('div');
+            fileItem.className = 'file-item';
+            fileItem.innerHTML = `
+                <span>📄 ${file.name} (${(file.size / 1024).toFixed(1)} KB)</span>
+                <button onclick="removeFile('${file.name}')" style="background: #f56565; color: white; border: none; padding: 0.5rem; border-radius: 5px; cursor: pointer;">Eliminar</button>
+            `;
+            fileList.appendChild(fileItem);
+        }
+
+        function removeFile(fileName) {
+            uploadedFiles = uploadedFiles.filter(file => file.name !== fileName);
+            const fileItems = document.querySelectorAll('.file-item');
+            fileItems.forEach(item => {
+                if (item.textContent.includes(fileName)) {
+                    item.remove();
+                }
+            });
+            showNotification('Archivo eliminado');
+        }
+
+        function verifyUser() {
+            const verificationCode = document.getElementById('verification-code').value;
+            
+            if (!verificationCode) {
+                showNotification('Ingrese el código de verificación', 'error');
+                return;
+            }
+
+            if (uploadedFiles.length === 0) {
+                showNotification('Por favor, suba un documento de identidad', 'error');
+                return;
+            }
+
+            // Simulación de verificación
+            showNotification('Verificación exitosa');
+            addChatMessage('assistant', '¡Perfecto! Tu identidad ha sido verificada correctamente. Ahora tienes acceso completo a todas las funcionalidades del sistema.');
+        }
+
+        // Sistema de chat
+        function sendMessage() {
+            const input = document.getElementById('message-input');
+            const message = input.value.trim();
+            
+            if (!message) return;
+
+            addChatMessage('user', message);
+            input.value = '';
+
+            // Respuesta automática del asistente
+            setTimeout(() => {
+                const response = generateResponse(message);
+                addChatMessage('assistant', response);
+            }, 1000);
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function addChatMessage(sender, message) {
+            const chatContainer = document.getElementById('chat-container');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+            
+            if (sender === 'user') {
+                messageDiv.innerHTML = `<strong>Tú:</strong><br>${message}`;
+            } else {
+                messageDiv.innerHTML = `<strong>Asistente Virtual:</strong><br>${message}`;
+            }
+
+            chatContainer.appendChild(messageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+
+            chatMessages.push({ sender, message, timestamp: new Date() });
+        }
+
+        function generateResponse(message) {
+            const lowerMessage = message.toLowerCase();
+            
+            if (lowerMessage.includes('curso') || lowerMessage.includes('inscrib')) {
+                return 'Para inscribirte en un curso, ve a la sección "Registro de Cursos", selecciona el curso deseado e ingresa tus datos. ¿Hay algún curso específico que te interese?';
+            } else if (lowerMessage.includes('certificado') || lowerMessage.includes('constancia')) {
+                return 'Puedes solicitar certificados y constancias en la sección correspondiente. Solo necesitas seleccionar el tipo de documento y el curso completado. ¿Para qué curso necesitas el certificado?';
+            } else if (lowerMessage.includes('cita') || lowerMessage.includes('reunion')) {
+                return 'Para agendar una cita, usa la sección "Solicitar Citas". Puedes elegir entre asesoría académica, consulta de matrícula o revisión de certificados. ¿Qué tipo de cita necesitas?';
+            } else if (lowerMessage.includes('documento') || lowerMessage.includes('retirar')) {
+                return 'En la sección "Retirar Certificados y Documentos" puedes ver qué documentos están listos para descargar. Haz clic en "Verificar Documentos Disponibles" para actualizar la lista.';
+            } else if (lowerMessage.includes('verificar') || lowerMessage.includes('identidad')) {
+                return 'Para verificar tu identidad, sube una foto de tu documento de identidad y ingresa el código que enviamos a tu email/SMS. Esto garantiza la seguridad de tus datos académicos.';
+            } else if (lowerMessage.includes('ayuda') || lowerMessage.includes('help')) {
+                return 'Estoy aquí para ayudarte con: ✅ Inscripciones en cursos ✅ Solicitud de certificados ✅ Agendar citas ✅ Verificación de identidad ✅ Consultar el estado de tus solicitudes. ¿Con qué específicamente necesitas ayuda?';
+            } else if (lowerMessage.includes('horario') || lowerMessage.includes('fecha')) {
+                return 'Los cursos tienen diferentes horarios. Las citas están disponibles de lunes a viernes de 8:00 AM a 6:00 PM. La fecha límite para inscripciones es el 20 de septiembre. ¿Necesitas información sobre algún curso específico?';
+            } else if (lowerMessage.includes('precio') || lowerMessage.includes('costo')) {
+                return 'Los precios varían según el curso: Programación Web ($299), Ciencia de Datos ($399), Ciberseguridad ($349), IA y ML ($449), Desarrollo Mobile ($299). Tenemos descuentos por pago anticipado. ¿Te interesa algún curso en particular?';
+            } else {
+                return 'Entiendo tu consulta. Para brindarte la mejor asistencia, puedes usar las herramientas del panel izquierdo o ser más específico sobre lo que necesitas. ¿Puedes darme más detalles sobre tu consulta?';
+            }
+        }
+
+        // Sistema de notificaciones
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification ${type}`;
+            notification.classList.add('show');
+
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 4000);
+        }
+
+        // Funciones adicionales para mejorar la experiencia
+        function logout() {
+            currentUser = null;
+            userType = 'user';
+            document.getElementById('user-section').classList.add('hidden');
+            document.getElementById('admin-section').classList.add('hidden');
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            showNotification('Sesión cerrada correctamente');
+            addChatMessage('assistant', '¡Hasta luego! Gracias por usar nuestro sistema de asistente virtual.');
+        }
+
+        // Simular datos en tiempo real
+        setInterval(() => {
+            if (currentUser) {
+                // Simular actualizaciones de estado
+                const random = Math.random();
+                if (random < 0.1) { // 10% de probabilidad cada 10 segundos
+                    showNotification('Nuevo documento disponible para descarga');
+                    addChatMessage('assistant', 'Te informo que tienes un nuevo documento listo para descargar en la sección correspondiente.');
+                }
+            }
+        }, 10000);
+
+        // Inicialización de elementos interactivos
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animaciones suaves al cargar
+            document.querySelectorAll('.panel').forEach((panel, index) => {
+                panel.style.animationDelay = `${index * 0.2}s`;
+                panel.style.animation = 'fadeInUp 0.6s ease forwards';
+            });
+
+            // Auto-focus en el campo de usuario
+            document.getElementById('username').focus();
+
+            // Mensajes de bienvenida rotativos
+            const welcomeMessages = [
+                "¡Bienvenido al sistema más avanzado de gestión académica!",
+                "Estamos aquí para hacer tu experiencia universitaria más fácil.",
+                "Tu éxito académico es nuestra prioridad.",
+                "Accede a todos tus servicios universitarios en un solo lugar."
+            ];
+
+            let messageIndex = 0;
+            setInterval(() => {
+                const headerTitle = document.querySelector('.header h1');
+                const originalText = headerTitle.innerHTML;
+                headerTitle.style.opacity = '0.5';
+                setTimeout(() => {
+                    headerTitle.innerHTML = `<span class="icon">🎓</span> ${welcomeMessages[messageIndex]}`;
+                    messageIndex = (messageIndex + 1) % welcomeMessages.length;
+                    headerTitle.style.opacity = '1';
+                }, 300);
+                setTimeout(() => {
+                    headerTitle.innerHTML = originalText;
+                }, 3000);
+            }, 15000);
+        });
+
+        // Función para exportar datos (simulación)
+        function exportUserData() {
+            const data = {
+                usuario: currentUser?.name || 'N/A',
+                cursos: ['Programación Web', 'Ciencia de Datos'],
+                certificados: 2,
+                solicitudes_pendientes: 1,
+                fecha_exportacion: new Date().toLocaleDateString('es-ES')
+            };
+
+            const jsonData = JSON.stringify(data, null, 2);
+            const blob = new Blob([jsonData], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'mi_informacion_academica.json';
+            a.click();
+            URL.revokeObjectURL(url);
+
+            showNotification('Información exportada correctamente');
+        }
+
+        // Validación de formularios mejorada
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function validateForm(formData) {
+            const errors = [];
+            
+            if (!formData.name || formData.name.length < 2) {
+                errors.push('El nombre debe tener al menos 2 caracteres');
+            }
+            
+            if (!formData.email || !validateEmail(formData.email)) {
+                errors.push('Ingrese un email válido');
+            }
+            
+            return errors;
+        }
+
+        // Sistema de búsqueda avanzada
+        function advancedSearch(query, data) {
+            const searchTerms = query.toLowerCase().split(' ');
+            return data.filter(item => {
+                return searchTerms.some(term => 
+                    item.name?.toLowerCase().includes(term) ||
+                    item.description?.toLowerCase().includes(term) ||
+                    item.category?.toLowerCase().includes(term)
+                );
+            });
+        }
+
+        // Sistema de recordatorios
+        function setReminder(message, delay) {
+            setTimeout(() => {
+                showNotification(message);
+                addChatMessage('assistant', `Recordatorio: ${message}`);
+            }, delay);
+        }
+
+        // Configurar recordatorios automáticos
+        if (currentUser) {
+            setReminder('No olvides completar tu perfil académico', 300000); // 5 minutos
+            setReminder('Revisa si tienes documentos pendientes por retirar', 600000); // 10 minutos
+        }
+    </script>
+</body>
+</html>

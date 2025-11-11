@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora IMC - Fitness Club</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="images/logo.png" alt="Fitness Club Logo">
+                </div>
+                <div class="search-bar">
+                    <button class="search-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                    </button>
+                    <input type="text" placeholder="Buscar...">
+                    <button class="menu-btn">☰</button>
+                    <button class="user-btn">👤</button>
+                </div>
+                <button class="client-btn">Toma esta oferta</button>
+            </div>
+            <nav class="nav">
+                <a href="index.html">home</a>
+                <a href="servicios.html">servicio</a>
+                <a href="app.html" class="active">app</a>
+                <a href="contacto.html">contacto</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <section class="app-hero">
+                <h1>Calculadora de IMC</h1>
+                <p>Calcula tu Índice de Masa Corporal</p>
+            </section>
+
+            <section class="imc-calculator">
+                <div class="calculator-card">
+                    <h2>Calcula tu IMC</h2>
+                    <form id="imcForm">
+                        <div class="form-group">
+                            <label for="peso">Peso (kg):</label>
+                            <input type="number" id="peso" name="peso" step="0.1" required placeholder="Ej: 70">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="altura">Altura (cm):</label>
+                            <input type="number" id="altura" name="altura" step="0.1" required placeholder="Ej: 175">
+                        </div>
+
+                        <div class="button-group">
+                            <button type="submit" class="btn-calculate">Calcular IMC</button>
+                            <button type="button" id="btnLimpiar" class="btn-secondary">Limpiar</button>
+                        </div>
+                    </form>
+
+                    <div id="resultado" class="result-box" style="display: none;">
+                        <h3>Tu Resultado</h3>
+                        <p style="font-size: 0.9rem; color: #666; margin-bottom: 15px;">Tu IMC es: <span id="imcValor" style="font-size: 2rem; color: #FFD700; font-weight: bold;"></span></p>
+                        <p id="imcCategoria" style="font-size: 1.3rem; font-weight: bold; margin-bottom: 15px;"></p>
+                        <div id="imcDescripcion"></div>
+                    </div>
+                </div>
+
+                <div class="imc-info">
+                    <h2>Categorías de IMC</h2>
+                    <table class="imc-table">
+                        <thead>
+                            <tr>
+                                <th>Categoría</th>
+                                <th>IMC</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Bajo peso</td>
+                                <td>Menos de 18.5</td>
+                            </tr>
+                            <tr>
+                                <td>Peso normal</td>
+                                <td>18.5 - 24.0</td>
+                            </tr>
+                            <tr>
+                                <td>Sobrepeso</td>
+                                <td>25.0 - 29.9</td>
+                            </tr>
+                            <tr>
+                                <td>Obesidad</td>
+                                <td>30.0 o más</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="index.html">Inicio</a>
+                    <a href="servicios.html">Servicios</a>
+                    <a href="contacto.html">Contacto</a>
+                </div>
+                <div class="footer-social">
+                    <h3>Redes Sociales (logo)</h3>
+                    <a href="#" class="social-link">Facebook</a>
+                    <a href="#" class="social-link">Instagram</a>
+                    <a href="#" class="social-link">Youtube</a>
+                </div>
+                <div class="footer-contact">
+                    <div class="contact-icon">✉</div>
+                    <input type="email" placeholder="Tu email" id="footerEmail">
+                    <button class="btn-submit" onclick="suscribirNewsletter()">Button</button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/imc.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

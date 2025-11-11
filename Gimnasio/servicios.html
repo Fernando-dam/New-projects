@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicios - Fitness Club</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="images/logo.png" alt="Fitness Club Logo">
+                </div>
+                <div class="search-bar">
+                    <button class="search-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                    </button>
+                    <input type="text" placeholder="Buscar...">
+                    <button class="menu-btn">☰</button>
+                    <button class="user-btn">👤</button>
+                </div>
+                <button class="client-btn">Toma esta oferta</button>
+            </div>
+            <nav class="nav">
+                <a href="index.html">home</a>
+                <a href="servicios.html" class="active">servicio</a>
+                <a href="app.html">app</a>
+                <a href="contacto.html">contacto</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <section class="services-hero">
+                <h1>Nuestros Servicios</h1>
+                <p>Descubre todo lo que tenemos para ofrecerte</p>
+            </section>
+
+            <section class="services-grid">
+                <div class="service-card">
+                    <div class="service-image"></div>
+                    <h3>Entrenamiento Personalizado</h3>
+                    <p>Programas diseñados específicamente para tus objetivos con entrenadores certificados.</p>
+                    <button class="btn-primary">Más info</button>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-image"></div>
+                    <h3>Clases Grupales</h3>
+                    <p>Yoga, Pilates, Spinning, Zumba y muchas más actividades en grupo.</p>
+                    <button class="btn-primary">Más info</button>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-image"></div>
+                    <h3>Área de Pesas</h3>
+                    <p>Equipamiento de última generación para entrenamiento de fuerza.</p>
+                    <button class="btn-primary">Más info</button>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-image"></div>
+                    <h3>Zona Cardio</h3>
+                    <p>Cintas, elípticas, bicicletas y más para tu entrenamiento cardiovascular.</p>
+                    <button class="btn-primary">Más info</button>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-image"></div>
+                    <h3>Nutrición</h3>
+                    <p>Asesoramiento nutricional personalizado para complementar tu entrenamiento.</p>
+                    <button class="btn-primary">Más info</button>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-image"></div>
+                    <h3>Spa y Sauna</h3>
+                    <p>Relájate después de tu entrenamiento en nuestras instalaciones de bienestar.</p>
+                    <button class="btn-primary">Más info</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="index.html">Inicio</a>
+                    <a href="servicios.html">Servicios</a>
+                    <a href="contacto.html">Contacto</a>
+                </div>
+                <div class="footer-social">
+                    <h3>Redes Sociales (logo)</h3>
+                    <a href="#" class="social-link">Facebook</a>
+                    <a href="#" class="social-link">Instagram</a>
+                    <a href="#" class="social-link">Youtube</a>
+                </div>
+                <div class="footer-contact">
+                    <div class="contact-icon">✉</div>
+                    <input type="email" placeholder="Tu email" id="footerEmail">
+                    <button class="btn-submit" onclick="suscribirNewsletter()">Button</button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

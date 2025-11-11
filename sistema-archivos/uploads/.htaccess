@@ -1,0 +1,52 @@
+# Archivo .htaccess para la carpeta uploads/
+# Este archivo proporciona seguridad adicional
+
+# Desactivar la ejecución de scripts PHP
+<FilesMatch "\.php$">
+    Order Allow,Deny
+    Allow from all
+</FilesMatch>
+
+# Prevenir el listado de directorios
+Options -Indexes
+
+# Permitir acceso solo a tipos de archivo específicos
+<FilesMatch "\.(jpg|jpeg|png|gif|webp|pdf|doc|docx|xls|xlsx|txt|zip|rar)$">
+    Order Allow,Deny
+    Allow from all
+</FilesMatch>
+
+# Protección contra inyección de código
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    # Bloquear archivos con doble extensión
+    RewriteCond %{REQUEST_FILENAME} \.(php|phtml|php3|php4|php5|pl|py|jsp|asp|htm|shtml|sh|cgi)\. [NC]
+    RewriteRule .* - [F]
+</IfModule>
+
+# Establecer tipo MIME correcto
+AddType application/pdf .pdf
+AddType image/jpeg .jpg .jpeg
+AddType image/png .png
+AddType image/gif .gif
+AddType image/webp .webp
+
+# Prevenir hotlinking (opcional)
+# RewriteEngine on
+# RewriteCond %{HTTP_REFERER} !^$
+# RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?tudominio.com [NC]
+# RewriteRule \.(jpg|jpeg|png|gif|pdf)$ - [NC,F,L]
+
+# Limitar tamaño de subida (si el servidor lo permite)
+php_value upload_max_filesize 10M
+php_value post_max_size 12M
+
+# Desactivar visualización de errores en producción
+php_flag display_errors Off
+
+# Headers de seguridad
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+</IfModule>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - Fitness Club</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="images/logo.png" alt="Fitness Club Logo">
+                </div>
+                <div class="search-bar">
+                    <button class="search-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                    </button>
+                    <input type="text" placeholder="Buscar...">
+                    <button class="menu-btn">☰</button>
+                    <button class="user-btn">👤</button>
+                </div>
+                <button class="client-btn">Toma esta oferta</button>
+            </div>
+            <nav class="nav">
+                <a href="index.html">home</a>
+                <a href="servicios.html">servicio</a>
+                <a href="app.html">app</a>
+                <a href="contacto.html" class="active">contacto</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <section class="contact-hero">
+                <h1>Contáctanos</h1>
+                <p>Estamos aquí para ayudarte</p>
+            </section>
+
+            <section class="contact-section">
+                <div class="contact-form-wrapper">
+                    <h2>Envíanos un mensaje</h2>
+                    <form id="contactForm" action="php/procesar_contacto.php" method="POST">
+                        <div class="form-group">
+                            <label for="nombre">Nombre completo:</label>
+                            <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" required placeholder="tu@email.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="telefono">Teléfono:</label>
+                            <input type="tel" id="telefono" name="telefono" placeholder="123 456 789">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="asunto">Asunto:</label>
+                            <input type="text" id="asunto" name="asunto" required placeholder="¿En qué podemos ayudarte?">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mensaje">Mensaje:</label>
+                            <textarea id="mensaje" name="mensaje" rows="5" required placeholder="Escribe tu mensaje aquí..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-primary">Enviar mensaje</button>
+                    </form>
+
+                    <div id="mensajeRespuesta" class="mensaje-respuesta" style="display: none;"></div>
+                </div>
+
+                <div class="contact-info">
+                    <h2>Información de contacto</h2>
+                    <div class="info-item">
+                        <h3>📍 Dirección</h3>
+                        <p>Calle Principal 123<br>Ciudad, CP 12345</p>
+                    </div>
+
+                    <div class="info-item">
+                        <h3>📞 Teléfono</h3>
+                        <p>+34 123 456 789</p>
+                    </div>
+
+                    <div class="info-item">
+                        <h3>✉ Email</h3>
+                        <p>info@fitnessclub.com</p>
+                    </div>
+
+                    <div class="info-item">
+                        <h3>⏰ Horario</h3>
+                        <p>Lunes a Viernes: 6:00 - 23:00<br>
+                        Sábados y Domingos: 8:00 - 20:00</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="index.html">Inicio</a>
+                    <a href="servicios.html">Servicios</a>
+                    <a href="contacto.html">Contacto</a>
+                </div>
+                <div class="footer-social">
+                    <h3>Redes Sociales (logo)</h3>
+                    <a href="#" class="social-link">Facebook</a>
+                    <a href="#" class="social-link">Instagram</a>
+                    <a href="#" class="social-link">Youtube</a>
+                </div>
+                <div class="footer-contact">
+                    <div class="contact-icon">✉</div>
+                    <input type="email" placeholder="Tu email" id="footerEmail">
+                    <button class="btn-submit" onclick="suscribirNewsletter()">Button</button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/contacto.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Club - Gimnasio Salud</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="images/logo.png" alt="Fitness Club Logo">
+                </div>
+                <div class="search-bar">
+                    <button class="search-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                    </button>
+                    <input type="text" placeholder="Buscar...">
+                    <button class="menu-btn">☰</button>
+                    <button class="user-btn">👤</button>
+                </div>
+                <button class="client-btn">Toma esta oferta</button>
+            </div>
+            <nav class="nav">
+                <a href="index.html" class="active">home</a>
+                <a href="servicios.html">servicio</a>
+                <a href="app.html">app</a>
+                <a href="contacto.html">contacto</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <section class="hero">
+                <h1>Bienvenido a Fitness Club</h1>
+                <p>Tu gimnasio de confianza para una vida saludable</p>
+            </section>
+
+            <section class="content-section">
+                <div class="content-text">
+                    <p>Somos el mejor gimnasio de la ciudad, ofreciendo servicios de primera calidad con entrenadores certificados y equipamiento de última generación.</p>
+                    <p>Únete a nuestra comunidad y alcanza tus objetivos fitness.</p>
+                    <div class="button-group">
+                        <button class="btn-primary" onclick="window.location.href='servicios.html'">Más información</button>
+                        <button class="btn-secondary" onclick="mostrarPlanes()">Ver planes</button>
+                    </div>
+                </div>
+                <div class="content-image">
+                    <div class="image-placeholder"></div>
+                </div>
+            </section>
+
+            <section class="features">
+                <div class="feature-item">
+                    <div class="feature-image"></div>
+                </div>
+                <div class="features-list">
+                    <div class="feature-card">Item One</div>
+                    <div class="feature-card">Item Two</div>
+                    <div class="feature-card">Item Three</div>
+                    <div class="feature-card">Item Four</div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="index.html">Inicio</a>
+                    <a href="servicios.html">Servicios</a>
+                    <a href="contacto.html">Contacto</a>
+                </div>
+                <div class="footer-social">
+                    <h3>Redes Sociales (logo)</h3>
+                    <a href="#" class="social-link">Facebook</a>
+                    <a href="#" class="social-link">Instagram</a>
+                    <a href="#" class="social-link">Youtube</a>
+                </div>
+                <div class="footer-contact">
+                    <div class="contact-icon">✉</div>
+                    <input type="email" placeholder="Tu email" id="footerEmail">
+                    <button class="btn-submit" onclick="suscribirNewsletter()">Button</button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
