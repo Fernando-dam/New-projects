@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificación de Iconos - YouTube Clone</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            background: #0f0f0f;
+            color: white;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #ff0000;
+            margin-bottom: 30px;
+        }
+        .icon-section {
+            background: #212121;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        .icon-section h2 {
+            color: #3ea6ff;
+            margin-bottom: 20px;
+        }
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .icon-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: #3f3f3f;
+            border-radius: 8px;
+        }
+        .icon-item i {
+            font-size: 24px;
+            width: 30px;
+            text-align: center;
+        }
+        .icon-item.error {
+            background: #ff000020;
+            border: 2px solid #ff0000;
+        }
+        .icon-item.success {
+            background: #00ff0020;
+            border: 2px solid #00ff00;
+        }
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+        .status.ok {
+            background: #0f7b0f;
+        }
+        .status.error {
+            background: #cc0000;
+        }
+        .code-block {
+            background: #000;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-family: monospace;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-icons"></i> Verificación de Iconos - YouTube Clone</h1>
+        
+        <!-- Verificación de Font Awesome -->
+        <div class="icon-section">
+            <h2>1. Verificación de Font Awesome</h2>
+            <div id="fontAwesomeStatus" class="status"></div>
+            <p style="margin-top: 15px; color: #aaa;">
+                Font Awesome debe estar cargado desde el CDN. Si ves cuadrados o símbolos extraños, hay un problema.
+            </p>
+        </div>
+        
+        <!-- Iconos del Sidebar -->
+        <div class="icon-section">
+            <h2>2. Iconos del Sidebar</h2>
+            <div class="icon-grid">
+                <div class="icon-item">
+                    <i class="fas fa-home"></i>
+                    <span>Inicio</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fas fa-fire"></i>
+                    <span>Tendencias</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fas fa-play-circle"></i>
+                    <span>Suscripciones</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fas fa-folder"></i>
+                    <span>Biblioteca</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fas fa-history"></i>
+                    <span>Historial</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fas fa-thumbs-up"></i>
+                    <span>Me gusta</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Ver más tarde</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fas fa-music"></i>
+                    <span>Música</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fas fa-futbol"></i>
+                    <span>Deportes</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fas fa-gamepad"></i>
+                    <span>Videojuegos</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fas fa-newspaper"></i>
+                    <span>Noticias</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fas fa-broadcast-tower"></i>
+                    <span>En directo</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Iconos del Header -->
+        <div class="icon-section">
+            <h2>3. Iconos del Header</h2>
+            <div class="icon-grid">
+                <div class="icon-item">
+                    <i class="fas fa-bars"></i>
+                    <span>Menú</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fab fa-youtube"></i>
+                    <span>YouTube Logo</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fas fa-search"></i>
+                    <span>Buscar</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fas fa-microphone"></i>
+                    <span>Micrófono</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fas fa-video"></i>
+                    <span>Subir video</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fas fa-th"></i>
+                    <span>Aplicaciones</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fas fa-bell"></i>
+                    <span>Notificaciones</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fas fa-user-circle"></i>
+                    <span>Usuario</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Iconos de Video -->
+        <div class="icon-section">
+            <h2>4. Iconos de Acciones de Video</h2>
+            <div class="icon-grid">
+                <div class="icon-item">
+                    <i class="fas fa-thumbs-up"></i>
+                    <span>Me gusta</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fas fa-thumbs-down"></i>
+                    <span>No me gusta</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fas fa-share"></i>
+                    <span>Compartir</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fas fa-download"></i>
+                    <span>Descargar</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fas fa-plus"></i>
+                    <span>Guardar</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Ver más tarde</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Soluciones -->
+        <div class="icon-section">
+            <h2>5. Soluciones si los iconos no se ven</h2>
+            
+            <div style="background: #181818; padding: 20px; border-radius: 8px; margin-bottom: 15px;">
+                <h3 style="color: #ff6b6b; margin-bottom: 15px;">
+                    <i class="fas fa-exclamation-triangle"></i> Si ves cuadrados o X en lugar de iconos:
+                </h3>
+                
+                <h4 style="margin: 15px 0 10px; color: #3ea6ff;">Solución 1: Verificar la conexión a Internet</h4>
+                <p style="color: #aaa; line-height: 1.6;">
+                    Font Awesome se carga desde un CDN. Asegúrate de tener conexión a Internet.
+                </p>
+                
+                <h4 style="margin: 15px 0 10px; color: #3ea6ff;">Solución 2: Limpiar caché del navegador</h4>
+                <div class="code-block">
+1. Presiona Ctrl + Shift + Delete<br>
+2. Marca "Archivos en caché"<br>
+3. Haz clic en "Borrar datos"<br>
+4. Recarga la página con Ctrl + F5
+                </div>
+                
+                <h4 style="margin: 15px 0 10px; color: #3ea6ff;">Solución 3: Verificar que el CDN esté en el HTML</h4>
+                <p style="color: #aaa; margin-bottom: 10px;">
+                    Todos los archivos PHP deben tener esta línea en el &lt;head&gt;:
+                </p>
+                <div class="code-block">
+&lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"&gt;
+                </div>
+                
+                <h4 style="margin: 15px 0 10px; color: #3ea6ff;">Solución 4: Descargar Font Awesome localmente</h4>
+                <p style="color: #aaa; margin-bottom: 10px;">
+                    Si el CDN no funciona, descarga Font Awesome:
+                </p>
+                <div class="code-block">
+1. Ve a: https://fontawesome.com/download<br>
+2. Descarga la versión gratuita<br>
+3. Extrae en: assets/fontawesome/<br>
+4. Cambia el link a: &lt;link rel="stylesheet" href="assets/fontawesome/css/all.min.css"&gt;
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="index.php" style="display: inline-block; padding: 15px 30px; background: #ff0000; color: white; text-decoration: none; border-radius: 8px; font-weight: bold;">
+                    <i class="fab fa-youtube"></i> Volver a YouTube Clone
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Verificar si Font Awesome se cargó correctamente
+        window.addEventListener('load', function() {
+            const statusDiv = document.getElementById('fontAwesomeStatus');
+            const testIcon = document.createElement('i');
+            testIcon.className = 'fas fa-check';
+            document.body.appendChild(testIcon);
+            
+            const computedStyle = window.getComputedStyle(testIcon);
+            const fontFamily = computedStyle.getPropertyValue('font-family');
+            
+            document.body.removeChild(testIcon);
+            
+            if(fontFamily.includes('Font Awesome')) {
+                statusDiv.className = 'status ok';
+                statusDiv.innerHTML = '<i class="fas fa-check-circle"></i> Font Awesome cargado correctamente';
+                
+                // Marcar todos los iconos como exitosos
+                document.querySelectorAll('.icon-item').forEach(item => {
+                    item.classList.add('success');
+                });
+            } else {
+                statusDiv.className = 'status error';
+                statusDiv.innerHTML = '<i class="fas fa-times-circle"></i> ERROR: Font Awesome no se cargó correctamente';
+                
+                // Marcar todos los iconos como error
+                document.querySelectorAll('.icon-item').forEach(item => {
+                    item.classList.add('error');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba Visual - Badge y Suscripciones</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            background: #0f0f0f;
+            color: white;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #ff0000;
+            margin-bottom: 30px;
+        }
+        .demo-section {
+            background: #212121;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        .demo-section h2 {
+            color: #3ea6ff;
+            margin-bottom: 20px;
+        }
+        
+        /* Simulación de notificación badge */
+        .notification-demo {
+            position: relative;
+            display: inline-block;
+        }
+        .bell-icon {
+            font-size: 32px;
+            padding: 15px;
+            background: #3f3f3f;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .badge {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #ff0000;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 3px 7px;
+            border-radius: 10px;
+            min-width: 20px;
+            text-align: center;
+        }
+        .badge.hidden {
+            display: none;
+        }
+        
+        /* Simulación de suscripción */
+        .subscription-demo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            background: #181818;
+            border-radius: 12px;
+        }
+        .channel-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #606060;
+        }
+        .channel-info {
+            flex: 1;
+        }
+        .channel-name {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+        .subscribers {
+            color: #aaaaaa;
+            font-size: 12px;
+        }
+        .subscribe-btn {
+            padding: 10px 16px;
+            background: white;
+            color: black;
+            border: none;
+            border-radius: 20px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+        .subscribe-btn:hover {
+            background: #cccccc;
+        }
+        .subscribe-btn.subscribed {
+            background: #3f3f3f;
+            color: white;
+            border: 1px solid #606060;
+        }
+        
+        .instructions {
+            background: #181818;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #3ea6ff;
+            margin-top: 15px;
+        }
+        .test-btn {
+            background: #3ea6ff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 15px;
+        }
+        .test-btn:hover {
+            background: #2d8fd4;
+        }
+        .success {
+            color: #51cf66;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-vial"></i> Prueba Visual - Badge y Suscripciones</h1>
+        
+        <!-- Demo Badge -->
+        <div class="demo-section">
+            <h2>1. Badge de Notificaciones</h2>
+            <p style="margin-bottom: 20px;">El badge (número rojo) debe desaparecer al hacer clic en la campana:</p>
+            
+            <div class="notification-demo">
+                <div class="bell-icon" onclick="toggleNotifications()">
+                    <i class="fas fa-bell"></i>
+                </div>
+                <span class="badge" id="demoBadge">3</span>
+            </div>
+            
+            <div class="instructions">
+                <strong>✅ Comportamiento correcto:</strong>
+                <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.8;">
+                    <li>Haz clic en la campana 🔔</li>
+                    <li>El número 3 debe desaparecer después de 0.5 segundos</li>
+                    <li>Se guarda en localStorage para no volver a aparecer</li>
+                </ul>
+            </div>
+            
+            <button class="test-btn" onclick="resetBadge()">
+                <i class="fas fa-redo"></i> Reiniciar Badge
+            </button>
+            <div class="success" id="badgeStatus"></div>
+        </div>
+        
+        <!-- Demo Suscripción -->
+        <div class="demo-section">
+            <h2>2. Botón de Suscripción</h2>
+            <p style="margin-bottom: 20px;">El botón debe cambiar de estado al hacer clic:</p>
+            
+            <div class="subscription-demo">
+                <div class="channel-avatar"></div>
+                <div class="channel-info">
+                    <div class="channel-name">Nombre del Canal</div>
+                    <div class="subscribers" id="subCount">1,234 suscriptores</div>
+                </div>
+                <button class="subscribe-btn" id="subBtn" onclick="toggleSubscription()">
+                    <i class="fas fa-bell"></i>
+                    <span id="subText">Suscribirse</span>
+                </button>
+            </div>
+            
+            <div class="instructions">
+                <strong>✅ Comportamiento correcto:</strong>
+                <ul style="margin-left: 20px; margin-top: 10px; line-height: 1.8;">
+                    <li>Muestra icono de campana 🔔</li>
+                    <li>Al hacer clic cambia a "Suscrito"</li>
+                    <li>Cambia el color del botón (blanco → gris)</li>
+                    <li>El contador de suscriptores aumenta</li>
+                    <li>Al hacer clic otra vez, cancela la suscripción</li>
+                </ul>
+            </div>
+            
+            <div class="success" id="subStatus" style="margin-top: 15px;"></div>
+        </div>
+        
+        <!-- Instrucciones finales -->
+        <div class="demo-section">
+            <h2>3. Probar en tu YouTube Clone</h2>
+            
+            <div style="background: #181818; padding: 20px; border-radius: 8px;">
+                <h3 style="color: #51cf66; margin-bottom: 15px;">
+                    <i class="fas fa-check-circle"></i> Pasos para verificar:
+                </h3>
+                
+                <ol style="line-height: 2; margin-left: 20px;">
+                    <li><strong>Badge de Notificaciones:</strong>
+                        <ul style="margin-left: 20px; margin-top: 5px;">
+                            <li>Ve a tu YouTube Clone</li>
+                            <li>Busca la campana 🔔 en el header</li>
+                            <li>Debe tener un número 3 en rojo</li>
+                            <li>Haz clic en la campana</li>
+                            <li>El número 3 debe desaparecer después de 0.5 seg</li>
+                        </ul>
+                    </li>
+                    
+                    <li style="margin-top: 15px;"><strong>Botón de Suscripción:</strong>
+                        <ul style="margin-left: 20px; margin-top: 5px;">
+                            <li>Ve a cualquier video (watch.php)</li>
+                            <li>Debajo del video, busca la sección del canal</li>
+                            <li>Debe aparecer: [Avatar] [Nombre] [Suscriptores] [🔔 Suscribirse]</li>
+                            <li>Haz clic en "Suscribirse"</li>
+                            <li>Debe cambiar a "🔔 Suscrito" en gris</li>
+                            <li>El contador debe aumentar en 1</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+            
+            <div style="margin-top: 20px; padding: 20px; background: #ff000020; border-radius: 8px; border-left: 4px solid #ff0000;">
+                <h3 style="color: #ff6b6b; margin-bottom: 10px;">
+                    <i class="fas fa-exclamation-triangle"></i> Si no funciona:
+                </h3>
+                <ul style="line-height: 1.8; margin-left: 20px;">
+                    <li>Limpia la caché del navegador (Ctrl + Shift + Delete)</li>
+                    <li>Recarga la página con Ctrl + F5</li>
+                    <li>Verifica que estés logueado</li>
+                    <li>Abre la consola (F12) y busca errores</li>
+                </ul>
+            </div>
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="../index.php" style="display: inline-block; padding: 15px 30px; background: #ff0000; color: white; text-decoration: none; border-radius: 8px; font-weight: bold;">
+                    <i class="fab fa-youtube"></i> Ir a YouTube Clone
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let notificationsOpen = false;
+        let subscribed = false;
+        let subCount = 1234;
+        
+        function toggleNotifications() {
+            notificationsOpen = !notificationsOpen;
+            const badge = document.getElementById('demoBadge');
+            const status = document.getElementById('badgeStatus');
+            
+            if(notificationsOpen) {
+                setTimeout(() => {
+                    badge.classList.add('hidden');
+                    status.innerHTML = '<i class="fas fa-check-circle"></i> ¡Perfecto! El badge desapareció correctamente';
+                }, 500);
+            }
+        }
+        
+        function resetBadge() {
+            const badge = document.getElementById('demoBadge');
+            const status = document.getElementById('badgeStatus');
+            badge.classList.remove('hidden');
+            notificationsOpen = false;
+            status.innerHTML = '';
+        }
+        
+        function toggleSubscription() {
+            subscribed = !subscribed;
+            const btn = document.getElementById('subBtn');
+            const text = document.getElementById('subText');
+            const count = document.getElementById('subCount');
+            const status = document.getElementById('subStatus');
+            
+            if(subscribed) {
+                btn.classList.add('subscribed');
+                text.textContent = 'Suscrito';
+                subCount++;
+                count.textContent = subCount.toLocaleString() + ' suscriptores';
+                status.innerHTML = '<i class="fas fa-check-circle"></i> ¡Suscripción activada! El botón cambió correctamente';
+            } else {
+                btn.classList.remove('subscribed');
+                text.textContent = 'Suscribirse';
+                subCount--;
+                count.textContent = subCount.toLocaleString() + ' suscriptores';
+                status.innerHTML = '<i class="fas fa-times-circle"></i> Suscripción cancelada';
+            }
+        }
+    </script>
+</body>
+</html>
